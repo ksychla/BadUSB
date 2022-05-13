@@ -1,50 +1,3 @@
-/**
-  ******************************************************************************
-  * @file    system_stm32f4xx.c
-  * @author  MCD Application Team
-  * @brief   CMSIS Cortex-M4 Device Peripheral Access Layer System Source File.
-  *
-  *   This file provides two functions and one global variable to be called from 
-  *   user application:
-  *      - SystemInit(): This function is called at startup just after reset and 
-  *                      before branch to main program. This call is made inside
-  *                      the "startup_stm32f4xx.s" file.
-  *
-  *      - SystemCoreClock variable: Contains the core clock (HCLK), it can be used
-  *                                  by the user application to setup the SysTick 
-  *                                  timer or configure other parameters.
-  *                                     
-  *      - SystemCoreClockUpdate(): Updates the variable SystemCoreClock and must
-  *                                 be called whenever the core clock is changed
-  *                                 during program execution.
-  *
-  *
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-
-/** @addtogroup CMSIS
-  * @{
-  */
-
-/** @addtogroup stm32f4xx_system
-  * @{
-  */  
-  
-/** @addtogroup STM32F4xx_System_Private_Includes
-  * @{
-  */
-
-
 #include "stm32f4xx.h"
 
 #if !defined  (HSE_VALUE) 
@@ -55,21 +8,6 @@
   #define HSI_VALUE    ((uint32_t)16000000) /*!< Value of the Internal oscillator in Hz*/
 #endif /* HSI_VALUE */
 
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_TypesDefinitions
-  * @{
-  */
-
-/**
-  * @}
-  */
-
-/** @addtogroup STM32F4xx_System_Private_Defines
-  * @{
-  */
 
 /************************* Miscellaneous Configuration ************************/
 /*!< Uncomment the following line if you need to use external SRAM or SDRAM as data memory  */
@@ -217,15 +155,13 @@ void SystemInit(void)
   * @param  None
   * @retval None
   */
-void SystemCoreClockUpdate(void)
-{
+void SystemCoreClockUpdate(void) {
   uint32_t tmp = 0, pllvco = 0, pllp = 2, pllsource = 0, pllm = 2;
   
   /* Get SYSCLK source -------------------------------------------------------*/
   tmp = RCC->CFGR & RCC_CFGR_SWS;
 
-  switch (tmp)
-  {
+  switch (tmp) {
     case 0x00:  /* HSI used as system clock source */
       SystemCoreClock = HSI_VALUE;
       break;
@@ -240,13 +176,10 @@ void SystemCoreClockUpdate(void)
       pllsource = (RCC->PLLCFGR & RCC_PLLCFGR_PLLSRC) >> 22;
       pllm = RCC->PLLCFGR & RCC_PLLCFGR_PLLM;
       
-      if (pllsource != 0)
-      {
+      if (pllsource != 0) {
         /* HSE used as PLL clock source */
         pllvco = (HSE_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
-      }
-      else
-      {
+      } else {
         /* HSI used as PLL clock source */
         pllvco = (HSI_VALUE / pllm) * ((RCC->PLLCFGR & RCC_PLLCFGR_PLLN) >> 6);
       }
@@ -276,8 +209,7 @@ void SystemCoreClockUpdate(void)
   * @param  None
   * @retval None
   */
-void SystemInit_ExtMemCtl(void)
-{
+void SystemInit_ExtMemCtl(void) {
   __IO uint32_t tmp = 0x00;
 
   register uint32_t tmpreg = 0, timeout = 0xFFFF;
@@ -374,8 +306,7 @@ void SystemInit_ExtMemCtl(void)
   /* Clock enable command */
   FMC_Bank5_6->SDCMR = 0x00000011; 
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
 
@@ -386,8 +317,7 @@ void SystemInit_ExtMemCtl(void)
   FMC_Bank5_6->SDCMR = 0x00000012;           
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
   
@@ -395,8 +325,7 @@ void SystemInit_ExtMemCtl(void)
   FMC_Bank5_6->SDCMR = 0x00000073;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
  
@@ -404,8 +333,7 @@ void SystemInit_ExtMemCtl(void)
   FMC_Bank5_6->SDCMR = 0x00046014;
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   } 
   
@@ -442,8 +370,7 @@ void SystemInit_ExtMemCtl(void)
   * @param  None
   * @retval None
   */
-void SystemInit_ExtMemCtl(void)
-{
+void SystemInit_ExtMemCtl(void) {
   __IO uint32_t tmp = 0x00;
 #if defined(STM32F427xx) || defined(STM32F437xx) || defined(STM32F429xx) || defined(STM32F439xx)\
  || defined(STM32F446xx) || defined(STM32F469xx) || defined(STM32F479xx)
@@ -582,8 +509,7 @@ void SystemInit_ExtMemCtl(void)
   /* Clock enable command */
   FMC_Bank5_6->SDCMR = 0x00000011; 
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
 
@@ -594,8 +520,7 @@ void SystemInit_ExtMemCtl(void)
   FMC_Bank5_6->SDCMR = 0x00000012;           
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
   
@@ -607,8 +532,7 @@ void SystemInit_ExtMemCtl(void)
 #endif /* STM32F446xx */
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   }
  
@@ -620,8 +544,7 @@ void SystemInit_ExtMemCtl(void)
 #endif /* STM32F446xx */
   tmpreg = FMC_Bank5_6->SDSR & 0x00000020;
   timeout = 0xFFFF;
-  while((tmpreg != 0) && (timeout-- > 0))
-  {
+  while((tmpreg != 0) && (timeout-- > 0)) {
     tmpreg = FMC_Bank5_6->SDSR & 0x00000020; 
   } 
   
@@ -734,14 +657,3 @@ void SystemInit_ExtMemCtl(void)
   (void)(tmp); 
 }
 #endif /* DATA_IN_ExtSRAM && DATA_IN_ExtSDRAM */
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */

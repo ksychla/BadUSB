@@ -6,7 +6,7 @@ BUILD_TYPE ?= Debug
 all: flash
 
 ${BUILD_DIR}/Makefile:
-	cmake \
+	@cmake \
 		-B${BUILD_DIR} \
 		-DCMAKE_BUILD_TYPE=${BUILD_TYPE} \
 		-DCMAKE_TOOLCHAIN_FILE=gcc-arm-none-eabi.cmake \
@@ -15,10 +15,10 @@ ${BUILD_DIR}/Makefile:
 cmake: ${BUILD_DIR}/Makefile
 
 build: cmake
-	$(MAKE) -C ${BUILD_DIR} --no-print-directory
+	@$(MAKE) -C ${BUILD_DIR} --no-print-directory
 
 flash: build
-	st-flash --reset write ${BUILD_DIR}/BadUSB.bin 0x08000000
+	@st-flash --reset write ${BUILD_DIR}/BadUSB.bin 0x08000000
 
 SRCS := $(shell find . -name '*.[ch]' -or -name '*.[ch]pp')
 format: $(addsuffix .format,${SRCS})

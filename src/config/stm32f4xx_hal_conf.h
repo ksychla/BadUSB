@@ -1,26 +1,3 @@
-/* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file    stm32f4xx_hal_conf_template.h
-  * @author  MCD Application Team
-  * @brief   HAL configuration template file.
-  *          This file should be copied to the application folder and renamed
-  *          to stm32f4xx_hal_conf.h.
-  ******************************************************************************
-  * @attention
-  *
-  * Copyright (c) 2017 STMicroelectronics.
-  * All rights reserved.
-  *
-  * This software is licensed under terms that can be found in the LICENSE file
-  * in the root directory of this software component.
-  * If no LICENSE file comes with this software, it is provided AS-IS.
-  *
-  ******************************************************************************
-  */
-/* USER CODE END Header */
-
-/* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __STM32F4xx_HAL_CONF_H
 #define __STM32F4xx_HAL_CONF_H
 
@@ -28,59 +5,9 @@
  extern "C" {
 #endif
 
-/* Exported types ------------------------------------------------------------*/
-/* Exported constants --------------------------------------------------------*/
-
-/* ########################## Module Selection ############################## */
-/**
-  * @brief This is the list of modules to be used in the HAL driver
-  */
 #define HAL_MODULE_ENABLED
-
-  /* #define HAL_ADC_MODULE_ENABLED   */
-/* #define HAL_CRYP_MODULE_ENABLED   */
-/* #define HAL_CAN_MODULE_ENABLED   */
-/* #define HAL_CRC_MODULE_ENABLED   */
-/* #define HAL_CAN_LEGACY_MODULE_ENABLED   */
-/* #define HAL_CRYP_MODULE_ENABLED   */
-/* #define HAL_DAC_MODULE_ENABLED   */
-/* #define HAL_DCMI_MODULE_ENABLED   */
-/* #define HAL_DMA2D_MODULE_ENABLED   */
-/* #define HAL_ETH_MODULE_ENABLED   */
-/* #define HAL_NAND_MODULE_ENABLED   */
-/* #define HAL_NOR_MODULE_ENABLED   */
-/* #define HAL_PCCARD_MODULE_ENABLED   */
-/* #define HAL_SRAM_MODULE_ENABLED   */
-/* #define HAL_SDRAM_MODULE_ENABLED   */
-/* #define HAL_HASH_MODULE_ENABLED   */
-/* #define HAL_I2C_MODULE_ENABLED   */
-/* #define HAL_I2S_MODULE_ENABLED   */
-/* #define HAL_IWDG_MODULE_ENABLED   */
-/* #define HAL_LTDC_MODULE_ENABLED   */
-/* #define HAL_RNG_MODULE_ENABLED   */
-/* #define HAL_RTC_MODULE_ENABLED   */
-/* #define HAL_SAI_MODULE_ENABLED   */
 #define HAL_SD_MODULE_ENABLED
-/* #define HAL_MMC_MODULE_ENABLED   */
-/* #define HAL_SPI_MODULE_ENABLED   */
-/* #define HAL_TIM_MODULE_ENABLED   */
-/* #define HAL_UART_MODULE_ENABLED   */
-/* #define HAL_USART_MODULE_ENABLED   */
-/* #define HAL_IRDA_MODULE_ENABLED   */
-/* #define HAL_SMARTCARD_MODULE_ENABLED   */
-/* #define HAL_SMBUS_MODULE_ENABLED   */
-/* #define HAL_WWDG_MODULE_ENABLED   */
 #define HAL_PCD_MODULE_ENABLED
-/* #define HAL_HCD_MODULE_ENABLED   */
-/* #define HAL_DSI_MODULE_ENABLED   */
-/* #define HAL_QSPI_MODULE_ENABLED   */
-/* #define HAL_QSPI_MODULE_ENABLED   */
-/* #define HAL_CEC_MODULE_ENABLED   */
-/* #define HAL_FMPI2C_MODULE_ENABLED   */
-/* #define HAL_FMPSMBUS_MODULE_ENABLED   */
-/* #define HAL_SPDIFRX_MODULE_ENABLED   */
-/* #define HAL_DFSDM_MODULE_ENABLED   */
-/* #define HAL_LPTIM_MODULE_ENABLED   */
 #define HAL_GPIO_MODULE_ENABLED
 #define HAL_EXTI_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
@@ -140,10 +67,7 @@
   #define EXTERNAL_CLOCK_VALUE    12288000U /*!< Value of the External audio frequency in Hz*/
 #endif /* EXTERNAL_CLOCK_VALUE */
 
-/* Tip: To avoid modifying this file each time you need to use different HSE,
-   ===  you can define the HSE value in your toolchain compiler preprocessor. */
 
-/* ########################### System Configuration ######################### */
 /**
   * @brief This is the HAL system configuration section
   */
@@ -194,16 +118,6 @@
 #define  USE_HAL_USART_REGISTER_CALLBACKS       0U /* USART register callback disabled     */
 #define  USE_HAL_WWDG_REGISTER_CALLBACKS        0U /* WWDG register callback disabled      */
 
-/* ########################## Assert Selection ############################## */
-/**
-  * @brief Uncomment the line below to expanse the "assert_param" macro in the
-  *        HAL drivers code
-  */
-/* #define USE_FULL_ASSERT    1U */
-
-/* ################## Ethernet peripheral configuration ##################### */
-
-/* Section 1 : Ethernet peripheral configuration */
 
 /* MAC ADDRESS: MAC_ADDR0:MAC_ADDR1:MAC_ADDR2:MAC_ADDR3:MAC_ADDR4:MAC_ADDR5 */
 #define MAC_ADDR0   2U
@@ -219,8 +133,6 @@
 #define ETH_RXBUFNB                    4U       /* 4 Rx buffers of size ETH_RX_BUF_SIZE  */
 #define ETH_TXBUFNB                    4U       /* 4 Tx buffers of size ETH_TX_BUF_SIZE  */
 
-/* Section 2: PHY configuration section */
-
 /* DP83848_PHY_ADDRESS Address*/
 #define DP83848_PHY_ADDRESS           0x01U
 /* PHY Reset delay these values are based on a 1 ms Systick interrupt*/
@@ -231,7 +143,7 @@
 #define PHY_READ_TO                     0x0000FFFFU
 #define PHY_WRITE_TO                    0x0000FFFFU
 
-/* Section 3: Common PHY Registers */
+/* Common PHY Registers */
 
 #define PHY_BCR                         ((uint16_t)0x0000U)    /*!< Transceiver Basic Control Register   */
 #define PHY_BSR                         ((uint16_t)0x0001U)    /*!< Transceiver Basic Status Register    */
@@ -251,13 +163,11 @@
 #define PHY_LINKED_STATUS               ((uint16_t)0x0004U)  /*!< Valid link established               */
 #define PHY_JABBER_DETECTION            ((uint16_t)0x0002U)  /*!< Jabber condition detected            */
 
-/* Section 4: Extended PHY Registers */
+/* Extended PHY Registers */
 #define PHY_SR                          ((uint16_t)0x10U)    /*!< PHY status register Offset                      */
 
 #define PHY_SPEED_STATUS                ((uint16_t)0x0002U)  /*!< PHY Speed mask                                  */
 #define PHY_DUPLEX_STATUS               ((uint16_t)0x0004U)  /*!< PHY Duplex mask                                 */
-
-/* ################## SPI peripheral configuration ########################## */
 
 /* CRC FEATURE: Use to activate CRC feature inside HAL SPI Driver
 * Activated: CRC code is present inside driver
@@ -266,10 +176,6 @@
 
 #define USE_SPI_CRC                     0U
 
-/* Includes ------------------------------------------------------------------*/
-/**
-  * @brief Include module's header file
-  */
 
 #ifdef HAL_RCC_MODULE_ENABLED
   #include "stm32f4xx_hal_rcc.h"
@@ -467,7 +373,6 @@
  #include "stm32f4xx_hal_mmc.h"
 #endif /* HAL_MMC_MODULE_ENABLED */
 
-/* Exported macro ------------------------------------------------------------*/
 #ifdef  USE_FULL_ASSERT
 /**
   * @brief  The assert_param macro is used for function's parameters check.
