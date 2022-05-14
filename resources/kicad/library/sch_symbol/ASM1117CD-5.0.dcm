@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ASM1117CD-5.0
+D 1A LOW DROPOUT VOLTAGE REGULATOR
+K
+F http://www.advanced-monolithic.com/pdf/ds1117.pdf
+$ENDCMP
+#
+#End Doc Library

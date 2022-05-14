@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP LFXTAL055663Reel
+D Crystals 8MHz 18pF -40C 85C
+K
+F https://datasheet.datasheetarchive.com/originals/dk/DKDS-40/46317.pdf
+$ENDCMP
+#
+#End Doc Library

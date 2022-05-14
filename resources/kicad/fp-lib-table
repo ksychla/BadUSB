@@ -1,0 +1,7 @@
+(fp_lib_table
+  (lib (name ASM1117CD-5.0)(type Legacy)(uri ${KIPRJMOD}/library/pcb_footprint.pretty/ASM1117CD-5.0.mod)(options "")(descr ""))
+  (lib (name ASMT-YTB2-0BB02)(type Legacy)(uri ${KIPRJMOD}/library/pcb_footprint.pretty/ASMT-YTB2-0BB02.mod)(options "")(descr ""))
+  (lib (name LFXTAL055663Reel)(type Legacy)(uri ${KIPRJMOD}/library/pcb_footprint.pretty/LFXTAL055663Reel.mod)(options "")(descr ""))
+  (lib (name LFXTAL069392Cutt)(type Legacy)(uri ${KIPRJMOD}/library/pcb_footprint.pretty/LFXTAL069392Cutt.mod)(options "")(descr ""))
+  (lib (name test)(type KiCad)(uri ${KIPRJMOD}/library/test.pretty)(options "")(descr ""))
+)

@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP ASMT-YTB2-0BB02
+D Broadcom ASMT-YTB2-0BB02, 470 / 530 / 622 nm 3 RGB LED, PLCC 6 SMD package
+K
+F http://www.mouser.com/datasheet/2/678/V02-2583EN_DS_ASMT-YTB2-0BB02_2018-03-26-1359910.pdf
+$ENDCMP
+#
+#End Doc Library

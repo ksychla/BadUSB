@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP USB-AM-S-F-B-TH
+D Conn USB 2.0 Type A PL 4 POS 2mm/2.5mm Solder RA Thru-Hole 4 Terminal 1 Port Bulk
+K
+F http://suddendocs.samtec.com/prints/usb-am-s-x-x-th-x-mkt.pdf
+$ENDCMP
+#
+#End Doc Library

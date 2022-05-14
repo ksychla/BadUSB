@@ -1,0 +1,34 @@
+KARTA INFORMACYJNA PŁYTKI DRUKOWANEJ
+
+1.	Zamawiający: 	 
+  Krzysztof Sychla, 
+	ul. Osiedle Powstań Narodowych 37/18,
+	61-215 POZNAŃ
+	tel. 696 317 718
+
+2.	Numer (nazwa) płytki drukowanej: BadUSB (KS v1)
+
+3.	Rodzaj płytki drukowanej: 
+   - płytka dwustronna, 
+   - otwory metalizowane, 
+   - otwory niemetalizowane, 
+   - montaż 2-stronny elementów THD, 
+   - montaż 2-stronny elementów SMD
+
+4.	Materiał: Laminat dwustronny FR4; 35um Cu; grubość 1,5mm
+
+5.	Wymiary płytki (x / y): 16,5mm / 42,8mm (zgodnie z obrysem)
+
+6.	Soldermaska: położona na ścieżki miedziane (nie pokryte cyną)
+
+7.	Opis elementów: sitodruk po obu stronach płytki występuje
+
+
+UWAGA!!!
+Karta informacyjna jest podstawowym źródłem informacji o obwodzie drukowanym. 
+W przypadku jakichkolwiek rozbieżności pomiędzy kartą informacyjną, a pozostałymi 
+dokumentami należy wstrzymać wykonanie obwodu drukowanego i skontaktować się z zamawiającym.
+
+
+podpis wypełniającego kartę:
+Krzysztof Sychla

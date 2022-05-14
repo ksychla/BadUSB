@@ -1,0 +1,27 @@
+EESchema-LIBRARY Version 2.3
+#encoding utf-8
+#SamacSys ECAD Model LFXTAL055663Reel
+#/917841/844608/2.49/4/4/Crystal or Oscillator
+DEF LFXTAL055663Reel Y 0 30 Y Y 1 F N
+F0 "Y" 1650 300 50 H V L CNN
+F1 "LFXTAL055663Reel" 1650 200 50 H V L CNN
+F2 "LFXTAL055663Reel" 1650 100 50 H I L CNN
+F3 "https://datasheet.datasheetarchive.com/originals/dk/DKDS-40/46317.pdf" 1650 0 50 H I L CNN
+F4 "Crystals 8MHz 18pF -40C 85C" 1650 -100 50 H I L CNN "Description"
+F5 "1" 1650 -200 50 H I L CNN "Height"
+F6 "IQD" 1650 -300 50 H I L CNN "Manufacturer_Name"
+F7 "LFXTAL055663Reel" 1650 -400 50 H I L CNN "Manufacturer_Part_Number"
+F8 "449-LFXTAL055663REEL" 1650 -500 50 H I L CNN "Mouser Part Number"
+F9 "https://www.mouser.co.uk/ProductDetail/IQD/LFXTAL055663Reel?qs=e4%2FAndAAwgJUd4OVSo%2FTjQ%3D%3D" 1650 -600 50 H I L CNN "Mouser Price/Stock"
+F10 "LFXTAL055663REEL" 1650 -700 50 H I L CNN "Arrow Part Number"
+F11 "https://www.arrow.com/en/products/lfxtal055663reel/iqd-frequency-products" 1650 -800 50 H I L CNN "Arrow Price/Stock"
+DRAW
+X CRYSTAL_1 1 0 -100 200 R 50 50 0 0 P
+X GND_&_LID_1 2 1800 -100 200 L 50 50 0 0 P
+X CRYSTAL_2 3 1800 0 200 L 50 50 0 0 P
+X GND_&_LID_2 4 0 0 200 R 50 50 0 0 P
+P 5 0 1 6 200 100 1600 100 1600 -200 200 -200 200 100 N
+ENDDRAW
+ENDDEF
+#
+#End Library

@@ -1,0 +1,10 @@
+(sym_lib_table
+  (lib (name STM32F411CEU6)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/STM32F411CEU6.lib)(options "")(descr ""))
+  (lib (name 47352-1001)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/47352-1001.lib)(options "")(descr ""))
+  (lib (name USB-AM-S-F-B-TH)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/USB-AM-S-F-B-TH.lib)(options "")(descr ""))
+  (lib (name ASM1117CD-5.0)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/ASM1117CD-5.0.lib)(options "")(descr ""))
+  (lib (name ASMT-YTB2-0BB02)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/ASMT-YTB2-0BB02.lib)(options "")(descr ""))
+  (lib (name LFXTAL055663Reel)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/LFXTAL055663Reel.lib)(options "")(descr ""))
+  (lib (name LFXTAL069392Cutt)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/LFXTAL069392Cutt.lib)(options "")(descr ""))
+  (lib (name 67298-4090)(type Legacy)(uri ${KIPRJMOD}/library/sch_symbol/67298-4090.lib)(options "")(descr ""))
+)
