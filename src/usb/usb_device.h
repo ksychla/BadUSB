@@ -24,6 +24,8 @@ typedef struct {
 } keyboardHID;
 
 void MX_USB_DEVICE_Init(void);
+void openShell();
+void closeShell();
 void typeString(char* string);
 int8_t isCharInArray(char c, char* array, int size);
 void sendKeyPress(keyboardHID* keyboardhid);
