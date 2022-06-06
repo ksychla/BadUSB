@@ -38,9 +38,6 @@ void clear_buffer (void);
 /* clears the path buffer*/
 void clear_path (void);
 
-/* send the data to the uart*/
-void send_uart (char *string);
-
 /* counts the length of the command
  * it checks for the space ' ' char. so make sure you give space after the command
  */
@@ -50,10 +47,10 @@ int cmdlength (char *str);
 void get_path (void);
 
 /* mounts the sd card*/
-void mount_sd (void);
+FRESULT mount_sd (void);
 
 /* unmounts the sd card*/
-void unmount_sd (void);
+FRESULT unmount_sd (void);
 
 /* Start node to be scanned (***also used as work area***) */
 FRESULT scan_files (char* pat);
@@ -64,7 +61,7 @@ void write_file (char *name);
 
 /* read data from the file
  * @ name : is the path to the file*/
-void read_file (char *name);
+FRESULT read_file (char *name, char* result);
 
 /* creates the file, if it does not exists
  * @ name : is the path to the file*/
