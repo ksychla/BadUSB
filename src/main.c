@@ -30,9 +30,9 @@ int main(void) {
   if (mount_sd() == FR_OK)  {
     read_file("payload.txt", buffer); 
     unmount_sd();
-    openShell();
-    typeString(buffer);
-    closeShell();
+    // openShell();
+    // typeString(buffer);
+    // closeShell();
     flag = 1;
   }
   free(buffer);
@@ -41,7 +41,8 @@ int main(void) {
     if (flag == 1) {
       flashLED();
     }
-    HAL_Delay(1000);
+    // flashLED();
+    HAL_Delay(100);
   }
 }
 
@@ -111,17 +112,17 @@ static void MX_GPIO_Init(void) {
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(TEST_LED_GPIO_Port, TEST_LED_Pin, GPIO_PIN_RESET);
+  // HAL_GPIO_WritePin(TEST_LED_GPIO_Port, TEST_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin|LED_B_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : TEST_LED_Pin */
-  GPIO_InitStruct.Pin = TEST_LED_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  GPIO_InitStruct.Pull = GPIO_NOPULL;
-  GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  HAL_GPIO_Init(TEST_LED_GPIO_Port, &GPIO_InitStruct);
+  // GPIO_InitStruct.Pin = TEST_LED_Pin;
+  // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+  // GPIO_InitStruct.Pull = GPIO_NOPULL;
+  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
+  // HAL_GPIO_Init(TEST_LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_R_Pin LED_G_Pin LED_B_Pin */
   GPIO_InitStruct.Pin = LED_R_Pin|LED_G_Pin|LED_B_Pin;
@@ -138,7 +139,10 @@ void Error_Handler(void) {
 }
 
 void flashLED() {
-	HAL_GPIO_TogglePin(TEST_LED_GPIO_Port, TEST_LED_Pin);
+	// HAL_GPIO_TogglePin(TEST_LED_GPIO_Port, TEST_LED_Pin);
+	// HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
+	// HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
+	HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
 	// HAL_Delay(100);
 }
 
