@@ -19,29 +19,29 @@ int main(void) {
   SystemClock_Config();
 
   MX_GPIO_Init();
-  MX_SDIO_SD_Init();
+  // MX_SDIO_SD_Init();
   MX_USB_DEVICE_Init();
-  MX_FATFS_Init();
-  int8_t flag = 0;
-  char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
+  // MX_FATFS_Init();
+  // int8_t flag = 0;
+  // char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
 
-  HAL_Delay(2000);
+  // HAL_Delay(2000);
 
-  if (mount_sd() == FR_OK)  {
-    read_file("payload.txt", buffer); 
-    unmount_sd();
-    // openShell();
-    // typeString(buffer);
-    // closeShell();
-    flag = 1;
-  }
-  free(buffer);
+  // if (mount_sd() == FR_OK)  {
+  //   read_file("payload.txt", buffer); 
+  //   unmount_sd();
+  //   openShell();
+  //   typeString(buffer);
+  //   closeShell();
+  //   flag = 1;
+  // }
+  // free(buffer);
 
   while (1) {
-    if (flag == 1) {
-      flashLED();
-    }
-    // flashLED();
+    // if (flag == 1) {
+    //   flashLED();
+    // }
+    flashLED();
     HAL_Delay(100);
   }
 }
@@ -50,7 +50,8 @@ void SystemClock_Config(void) {
   RCC_OscInitTypeDef RCC_OscInitStruct = {0};
   RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
 
-  // Configure the main internal regulator output voltage
+  /** Configure the main internal regulator output voltage
+  */
   __HAL_RCC_PWR_CLK_ENABLE();
   __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
@@ -64,20 +65,21 @@ void SystemClock_Config(void) {
   RCC_OscInitStruct.PLL.PLLState = RCC_PLL_ON;
   RCC_OscInitStruct.PLL.PLLSource = RCC_PLLSOURCE_HSE;
   RCC_OscInitStruct.PLL.PLLM = 15;
-  RCC_OscInitStruct.PLL.PLLN = 144;
+  RCC_OscInitStruct.PLL.PLLN = 135;
   RCC_OscInitStruct.PLL.PLLP = RCC_PLLP_DIV2;
-  RCC_OscInitStruct.PLL.PLLQ = 5;
+  RCC_OscInitStruct.PLL.PLLQ = 3;
   if (HAL_RCC_OscConfig(&RCC_OscInitStruct) != HAL_OK) {
     Error_Handler();
   }
 
-  // Initializes the CPU, AHB and APB buses clocks
+  /** Initializes the CPU, AHB and APB buses clocks
+  */
   RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
                               |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_HSI;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV1;
-  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV1;
+  RCC_ClkInitStruct.APB2CLKDivider = RCC_HCLK_DIV2;
 
   if (HAL_RCC_ClockConfig(&RCC_ClkInitStruct, FLASH_LATENCY_0) != HAL_OK) {
     Error_Handler();
@@ -141,8 +143,8 @@ void Error_Handler(void) {
 void flashLED() {
 	// HAL_GPIO_TogglePin(TEST_LED_GPIO_Port, TEST_LED_Pin);
 	// HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
-	// HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
-	HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
+	HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
+	// HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
 	// HAL_Delay(100);
 }
 
