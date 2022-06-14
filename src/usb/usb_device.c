@@ -23,43 +23,43 @@ void MX_USB_DEVICE_Init(void) {
 void openShell() {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
   // Windows
-  keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  keyboardhid->KEYCODE1 = KEY_R;
-  sendKeyPress(keyboardhid);
-  HAL_Delay(40);
-  keyboardhid->KEYCODE1 = KEY_C;
-  keyboardhid->KEYCODE2 = KEY_M;
-  keyboardhid->KEYCODE3 = KEY_D;
-  keyboardhid->KEYCODE4 = KEY_SPACE;
-  keyboardhid->KEYCODE5 = KEY_SLASH;
-  sendKeyPress(keyboardhid);
-  keyboardhid->KEYCODE1 = KEY_C;
-  keyboardhid->KEYCODE2 = KEY_ENTER;
-  sendKeyPress(keyboardhid);
+  // keyboardhid->MODIFIER = KEY_MOD_LMETA;
+  // keyboardhid->KEYCODE1 = KEY_R;
+  // sendKeyPress(keyboardhid);
+  // HAL_Delay(40);
+  // keyboardhid->KEYCODE1 = KEY_C;
+  // keyboardhid->KEYCODE2 = KEY_M;
+  // keyboardhid->KEYCODE3 = KEY_D;
+  // keyboardhid->KEYCODE4 = KEY_SPACE;
+  // keyboardhid->KEYCODE5 = KEY_SLASH;
+  // sendKeyPress(keyboardhid);
+  // keyboardhid->KEYCODE1 = KEY_C;
+  // keyboardhid->KEYCODE2 = KEY_ENTER;
+  // sendKeyPress(keyboardhid);
 
   // MacOS
-  keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  keyboardhid->KEYCODE1 = KEY_SPACE;
-  sendKeyPress(keyboardhid);
-  HAL_Delay(40);
-  keyboardhid->KEYCODE1 = KEY_T;
-  keyboardhid->KEYCODE2 = KEY_E;
-  keyboardhid->KEYCODE3 = KEY_R;
-  keyboardhid->KEYCODE4 = KEY_M;
-  keyboardhid->KEYCODE5 = KEY_I;
-  keyboardhid->KEYCODE6 = KEY_N;
-  sendKeyPress(keyboardhid);
-  keyboardhid->KEYCODE1 = KEY_A;
-  keyboardhid->KEYCODE2 = KEY_L;
-  keyboardhid->KEYCODE3 = KEY_ENTER;
-  sendKeyPress(keyboardhid);
+  // keyboardhid->MODIFIER = KEY_MOD_LMETA;
+  // keyboardhid->KEYCODE1 = KEY_SPACE;
+  // sendKeyPress(keyboardhid);
+  // HAL_Delay(40);
+  // keyboardhid->KEYCODE1 = KEY_T;
+  // keyboardhid->KEYCODE2 = KEY_E;
+  // keyboardhid->KEYCODE3 = KEY_R;
+  // keyboardhid->KEYCODE4 = KEY_M;
+  // keyboardhid->KEYCODE5 = KEY_I;
+  // keyboardhid->KEYCODE6 = KEY_N;
+  // sendKeyPress(keyboardhid);
+  // keyboardhid->KEYCODE1 = KEY_A;
+  // keyboardhid->KEYCODE2 = KEY_L;
+  // keyboardhid->KEYCODE3 = KEY_ENTER;
+  // sendKeyPress(keyboardhid);
 
   // Linux
   keyboardhid->MODIFIER = KEY_MOD_LCTRL | KEY_MOD_LALT;
   keyboardhid->KEYCODE1 = KEY_T;
   sendKeyPress(keyboardhid);
 
-  HAL_Delay(50);
+  HAL_Delay(150);
   free(keyboardhid);
 }
 
