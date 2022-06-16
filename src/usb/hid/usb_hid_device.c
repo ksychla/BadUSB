@@ -4,17 +4,17 @@
 #include "usbd_hid.h"
 #include "usb_keyboard.h"
 
-USBD_HandleTypeDef hUsbDeviceFS;
+USBD_HandleTypeDef hidUsbDeviceFS;
 
 
 void MX_USB_HID_DEVICE_Init(void) {
-  if (USBD_Init(&hUsbDeviceFS, &FS_HID_Desc, DEVICE_FS) != USBD_OK) {
+  if (USBD_Init(&hidUsbDeviceFS, &FS_HID_Desc, DEVICE_FS) != USBD_OK) {
     Error_Handler();
   }
-  if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_HID) != USBD_OK) {
+  if (USBD_RegisterClass(&hidUsbDeviceFS, &USBD_HID) != USBD_OK) {
     Error_Handler();
   }
-  if (USBD_Start(&hUsbDeviceFS) != USBD_OK) {
+  if (USBD_Start(&hidUsbDeviceFS) != USBD_OK) {
     Error_Handler();
   }
 
@@ -120,7 +120,7 @@ int8_t isCharInArray(char c, char* array, int size) {
 }
 
 void sendKeyPress(keyboardHID* keyboardhid) {
-  USBD_HID_SendReport(&hUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
+  USBD_HID_SendReport(&hidUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
   HAL_Delay(2);
   keyboardhid->MODIFIER = 0x0;
   keyboardhid->KEYCODE1 = 0x0;
@@ -129,7 +129,7 @@ void sendKeyPress(keyboardHID* keyboardhid) {
   keyboardhid->KEYCODE4 = 0x0;
   keyboardhid->KEYCODE5 = 0x0;
   keyboardhid->KEYCODE6 = 0x0;
-  USBD_HID_SendReport(&hUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
+  USBD_HID_SendReport(&hidUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
   HAL_Delay(2);
 }
 

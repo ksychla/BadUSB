@@ -129,8 +129,8 @@ __ALIGN_BEGIN uint8_t USBD_HID_StrDesc[USBD_MAX_STR_DESC_SIZ] __ALIGN_END;
 #if defined ( __ICCARM__ ) /*!< IAR Compiler */
   #pragma data_alignment=4
 #endif
-__ALIGN_BEGIN uint8_t USBD_HID_StringSerial[USB_SIZ_STRING_SERIAL] __ALIGN_END = {
-  USB_SIZ_STRING_SERIAL,
+__ALIGN_BEGIN uint8_t USBD_HID_StringSerial[USB_HID_SIZ_STRING_SERIAL] __ALIGN_END = {
+  USB_HID_SIZ_STRING_SERIAL,
   USB_DESC_TYPE_STRING,
 };
 
@@ -163,7 +163,7 @@ uint8_t* USBD_HID_FS_ManufacturerStrDescriptor(USBD_SpeedTypeDef speed, uint16_t
 
 uint8_t* USBD_HID_FS_SerialStrDescriptor(USBD_SpeedTypeDef speed, uint16_t *length) {
   UNUSED(speed);
-  *length = USB_SIZ_STRING_SERIAL;
+  *length = USB_HID_SIZ_STRING_SERIAL;
 
   /* Update the serial number string descriptor with the data from the unique
    * ID */
