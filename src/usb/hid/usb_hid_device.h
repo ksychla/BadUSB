@@ -1,5 +1,5 @@
-#ifndef __USB_DEVICE__H__
-#define __USB_DEVICE__H__
+#ifndef __USB_HID_DEVICE__H__
+#define __USB_HID_DEVICE__H__
 
 #ifdef __cplusplus
  extern "C" {
@@ -23,7 +23,7 @@ typedef struct {
   uint8_t KEYCODE6;
 } keyboardHID;
 
-void MX_USB_DEVICE_Init(void);
+void MX_USB_HID_DEVICE_Init(void);
 void openShell();
 void closeShell();
 void typeString(char* string);
@@ -37,4 +37,4 @@ char toLower(char character);
 }
 #endif
 
-#endif /* __USB_DEVICE__H__ */
+#endif /* __USB_HID_DEVICE__H__ */

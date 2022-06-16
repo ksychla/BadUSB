@@ -28,22 +28,28 @@ set(CUBE_INCLUDE_DIRECTORIES
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/CMSIS/Device/ST/${MCU_FAMILY}/Include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/CMSIS/Include
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Class/HID/Inc
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Class/MSC/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Core/Inc
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/FatFs/src)
 set(PROJECT_INCLUDE_DIRECTORIES
     ${CMAKE_CURRENT_SOURCE_DIR}/src
     ${CMAKE_CURRENT_SOURCE_DIR}/src/config
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/hid
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/msc
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/common
     ${CMAKE_CURRENT_SOURCE_DIR}/src/sdio)
 
 # Sources
 file(GLOB_RECURSE PROJECT_SOURCES FOLLOW_SYMLINKS
     ${CMAKE_CURRENT_SOURCE_DIR}/src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/config/*.c
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/hid/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/msc/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/usb/common/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/src/sdio/*.c)
 file(GLOB_RECURSE CUBE_SOURCES FOLLOW_SYMLINKS
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Class/HID/Src/*.c
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Class/MSC/Src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/STM32_USB_Device_Library/Core/Src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/FatFs/src/*.c
     ${CMAKE_CURRENT_SOURCE_DIR}/lib/FatFs/src/option/*.c

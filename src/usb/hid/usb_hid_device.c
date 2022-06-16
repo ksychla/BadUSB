@@ -1,14 +1,14 @@
-#include "usb_device.h"
+#include "usb_hid_device.h"
 #include "usbd_core.h"
-#include "usbd_desc.h"
+#include "usbd_hid_desc.h"
 #include "usbd_hid.h"
 #include "usb_keyboard.h"
 
 USBD_HandleTypeDef hUsbDeviceFS;
 
 
-void MX_USB_DEVICE_Init(void) {
-  if (USBD_Init(&hUsbDeviceFS, &FS_Desc, DEVICE_FS) != USBD_OK) {
+void MX_USB_HID_DEVICE_Init(void) {
+  if (USBD_Init(&hUsbDeviceFS, &FS_HID_Desc, DEVICE_FS) != USBD_OK) {
     Error_Handler();
   }
   if (USBD_RegisterClass(&hUsbDeviceFS, &USBD_HID) != USBD_OK) {

@@ -1,7 +1,7 @@
 #include "main.h"
 #include "fatfs.h"
 #include "file_handling.h"
-#include "usb_device.h"
+#include "usb_hid_device.h"
 #include "ff.h"
 
 
@@ -20,7 +20,7 @@ int main(void) {
 
   MX_GPIO_Init();
   MX_SDIO_SD_Init();
-  MX_USB_DEVICE_Init();
+  MX_USB_HID_DEVICE_Init();
   MX_FATFS_Init();
   int8_t flag = 0;
   char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
@@ -41,7 +41,6 @@ int main(void) {
     if (flag == 1) {
       flashLED();
     }
-    // flashLED();
     HAL_Delay(100);
   }
 }
@@ -117,8 +116,8 @@ static void MX_GPIO_Init(void) {
   // HAL_GPIO_WritePin(TEST_LED_GPIO_Port, TEST_LED_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_R_Pin|LED_G_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOA, LED_B_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_B_Pin|LED_G_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : TEST_LED_Pin */
   // GPIO_InitStruct.Pin = TEST_LED_Pin;

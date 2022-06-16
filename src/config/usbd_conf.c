@@ -25,6 +25,7 @@
 #include "usbd_core.h"
 
 #include "usbd_hid.h"
+#include "usbd_msc.h"
 
 /* USER CODE BEGIN Includes */
 
@@ -614,9 +615,15 @@ USBD_StatusTypeDef USBD_LL_SetTestMode(USBD_HandleTypeDef *pdev, uint8_t testmod
   * @param  size: Size of allocated memory
   * @retval None
   */
-void *USBD_static_malloc(uint32_t size)
+void *USBD_HID_static_malloc(uint32_t size)
 {
   static uint32_t mem[(sizeof(USBD_HID_HandleTypeDef)/4)+1];/* On 32-bit boundary */
+  return mem;
+}
+
+void *USBD_MSC_static_malloc(uint32_t size)
+{
+  static uint32_t mem[(sizeof(USBD_MSC_BOT_HandleTypeDef)/4)+1];/* On 32-bit boundary */
   return mem;
 }
 
