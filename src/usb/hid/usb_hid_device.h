@@ -24,6 +24,7 @@ typedef struct {
 } keyboardHID;
 
 void MX_USB_HID_DEVICE_Init(void);
+void MX_USB_HID_DEVICE_DeInit(void);
 void openShell();
 void closeShell();
 void typeString(char* string);

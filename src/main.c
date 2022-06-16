@@ -2,7 +2,7 @@
 #include "fatfs.h"
 #include "file_handling.h"
 #include "usb_hid_device.h"
-#include "ff.h"
+#include "usb_msc_device.h"
 
 
 SD_HandleTypeDef hsd;
@@ -36,6 +36,11 @@ int main(void) {
     flag = 1;
   }
   free(buffer);
+
+  MX_FATFS_DeInit();
+  MX_USB_HID_DEVICE_DeInit();
+
+  MX_USB_MSC_DEVICE_Init();
 
   while (1) {
     if (flag == 1) {

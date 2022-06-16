@@ -20,6 +20,15 @@ void MX_USB_HID_DEVICE_Init(void) {
 
 }
 
+void MX_USB_HID_DEVICE_DeInit(void) {
+  if (USBD_Stop(&hidUsbDeviceFS) != USBD_OK) {
+    Error_Handler();
+  }
+  if (USBD_DeInit(&hidUsbDeviceFS) != USBD_OK) {
+    Error_Handler();
+  }
+}
+
 void openShell() {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
   // Windows
