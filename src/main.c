@@ -4,13 +4,14 @@
 #include "usb_hid_device.h"
 #include "usb_msc_device.h"
 
+#define PAYLOAD_NAME "payload.txt"
 
 SD_HandleTypeDef hsd;
 
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_SDIO_SD_Init(void);
-void flashLED();
+void flashLED(uint8_t r, uint8_t g, uint8_t b);
 
 
 int main(void) {
@@ -24,16 +25,26 @@ int main(void) {
   MX_FATFS_Init();
   int8_t flag = 0;
   char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
+  Key* keys;
 
-  HAL_Delay(2000);
-
-  if (mount_sd() == FR_OK)  {
-    read_file("payload.txt", buffer);
+  HAL_Delay(1500);
+  directives dirs;
+  if (mount_sd() == FR_OK) {
+    if (read_file(PAYLOAD_NAME, buffer) == FR_OK) {
+      dirs = parseDirectives(buffer);
+      buffer += dirs.numberOfBytes;
+      keys = prepareKeys(buffer);
+      if (!dirs.noshell) {
+        openShell();
+      }  
+      sendKeys(keys, strlen(buffer));
+      if (!dirs.noshell) {
+        closeShell();
+      }
+      flag = 1;
+      free(keys);
+    }
     unmount_sd();
-    openShell();
-    typeString(buffer);
-    closeShell();
-    flag = 1;
   }
   free(buffer);
 
@@ -44,7 +55,9 @@ int main(void) {
 
   while (1) {
     if (flag == 1) {
-      flashLED();
+      flashLED(0, 1, 0);
+    } else {
+      flashLED(1, 0, 0);
     }
     HAL_Delay(100);
   }
@@ -123,6 +136,7 @@ static void MX_GPIO_Init(void) {
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(GPIOA, LED_B_Pin|LED_G_Pin, GPIO_PIN_SET);
   HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_RESET);
+  // HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin : TEST_LED_Pin */
   // GPIO_InitStruct.Pin = TEST_LED_Pin;
@@ -145,12 +159,16 @@ void Error_Handler(void) {
   while (1) { }
 }
 
-void flashLED() {
-	// HAL_GPIO_TogglePin(TEST_LED_GPIO_Port, TEST_LED_Pin);
-	// HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
-	HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
-	// HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
-	// HAL_Delay(100);
+void flashLED(uint8_t r, uint8_t g, uint8_t b) {
+  if (r == 1) {
+    HAL_GPIO_TogglePin(LED_R_GPIO_Port, LED_R_Pin);
+  }
+  if (g == 1) {
+    HAL_GPIO_TogglePin(LED_G_GPIO_Port, LED_G_Pin);
+  }
+  if (b == 1) {
+    HAL_GPIO_TogglePin(LED_B_GPIO_Port, LED_B_Pin);
+  }
 }
 
 #ifdef  USE_FULL_ASSERT

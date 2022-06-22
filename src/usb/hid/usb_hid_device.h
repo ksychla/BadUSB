@@ -12,6 +12,14 @@
 #define TRUE 1
 #define FALSE 0
 
+#define NOSHELL "@@noshell@@"
+#define ONELINE "@@oneline@@"
+
+typedef struct {
+  uint8_t MODIFIER;
+  uint8_t KEYCODE;
+} Key;
+
 typedef struct {
   uint8_t MODIFIER;
   uint8_t RESERVED;
@@ -23,8 +31,19 @@ typedef struct {
   uint8_t KEYCODE6;
 } keyboardHID;
 
+typedef struct {
+  uint16_t numberOfBytes;
+  uint8_t noshell;
+  uint8_t oneline;
+} directives;
+
+
 void MX_USB_HID_DEVICE_Init(void);
 void MX_USB_HID_DEVICE_DeInit(void);
+directives parseDirectives(char* string);
+Key* prepareKeys(char* string);
+void prepareKey(char character, Key* k);
+void sendKeys(Key* keys, int size);
 void openShell();
 void closeShell();
 void typeString(char* string);

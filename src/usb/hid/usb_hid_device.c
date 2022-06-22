@@ -1,3 +1,5 @@
+#include <string.h>
+
 #include "usb_hid_device.h"
 #include "usbd_core.h"
 #include "usbd_hid_desc.h"
@@ -27,6 +29,75 @@ void MX_USB_HID_DEVICE_DeInit(void) {
   if (USBD_DeInit(&hidUsbDeviceFS) != USBD_OK) {
     Error_Handler();
   }
+}
+
+directives parseDirectives(char* string) {
+  directives dirs;
+  dirs.numberOfBytes = 0;
+  while (1) {
+    if (!strncmp(string, "@@", 2) == 0) {
+      return dirs;
+    }
+
+    if (strncmp(string, NOSHELL, strlen(NOSHELL)) == 0) {
+      dirs.noshell = TRUE;
+      dirs.numberOfBytes += strlen(NOSHELL) + 1;
+      string += strlen(NOSHELL) + 1;
+      continue;
+    }
+
+    if (strncmp(string, ONELINE, strlen(ONELINE)) == 0) {
+      dirs.oneline = TRUE;
+      dirs.numberOfBytes += strlen(ONELINE) + 1;
+      string += strlen(ONELINE) + 1;
+      continue;
+    }
+  }
+}
+
+Key* prepareKeys(char* string) {
+  Key* keys = (Key*)malloc(sizeof(Key) * strlen(string));
+  int i;
+  for (i = 0; i < strlen(string); i++) {
+    prepareKey(string[i], &keys[i]);
+  }
+  return keys;
+}
+
+void sendKeys(Key* keys, int size) {
+  int i;
+  keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
+  uint8_t keysToSend[6] = {0};
+  uint16_t keysToSendIndex = 0;
+  uint8_t currentModifier = 0;
+  for (i = 0; i < size; i++) {
+    if (isCharInArray(keys[i].KEYCODE, keysToSend, 6) >= 0 
+        || (keysToSendIndex > 0 && keys[i].MODIFIER != currentModifier)
+        || keysToSendIndex > 5) {
+      OPTprepareKeyboardHID(keyboardhid, keysToSend, currentModifier);
+      sendKeyPress(keyboardhid);
+      memset(keysToSend, 0, 6);
+      keysToSendIndex = 0;
+      currentModifier = 0;
+    }
+    keysToSend[keysToSendIndex] = keys[i].KEYCODE;
+    currentModifier = keys[i].MODIFIER;
+    keysToSendIndex++;
+  }
+  OPTprepareKeyboardHID(keyboardhid, keysToSend, currentModifier);
+  sendKeyPress(keyboardhid);
+
+  free(keyboardhid);
+}
+
+void prepareKey(char character, Key* k) {
+  char lowerCharacter = toLower(character);
+  k->MODIFIER = 0;
+  k->KEYCODE = encodeKey(lowerCharacter);
+  if (lowerCharacter != character) {
+    k->MODIFIER = 0x02;
+  }
+
 }
 
 void openShell() {
@@ -155,29 +226,33 @@ uint8_t encodeKey(char character) {
 
   switch (character) {
     case ' ':
-      return 0x2c;
+      return KEY_SPACE;
     case '\n':
-      return 0x28;
+      return KEY_ENTER;
     case '\t':
-      return 0x2b;
+      return KEY_TAB;
     case '/':
-      return 0x38;
+      return KEY_SLASH;
     case '\\':
-      return 0x31;
+      return KEY_BACKSLASH;
+    case ';':
+      return KEY_SEMICOLON;
+    case '\'':
+      return KEY_APOSTROPHE;
     case ',':
-      return 0x36;
+      return KEY_COMMA;
     case '.':
-      return 0x37;
+      return KEY_DOT;
     case '-':
-      return 0x2d;
+      return KEY_MINUS;
     case '=':
-      return 0x2e;
+      return KEY_EQUAL;
     case '[':
-      return 0x2f;
+      return KEY_LEFTBRACE;
     case ']':
-      return 0x30;
+      return KEY_RIGHTBRACE;
     case '`':
-      return 0x32;
+      return KEY_GRAVE;
   }
   return 0x0;
 }
@@ -190,6 +265,16 @@ void prepareKeyboardHID(keyboardHID* keyboardhid, char* charactersToSend, uint8_
   keyboardhid->KEYCODE4 = encodeKey(charactersToSend[3]);
   keyboardhid->KEYCODE5 = encodeKey(charactersToSend[4]);
   keyboardhid->KEYCODE6 = encodeKey(charactersToSend[5]);
+}
+
+void OPTprepareKeyboardHID(keyboardHID* keyboardhid, uint8_t* charactersToSend, uint8_t currentModifier) {
+  keyboardhid->MODIFIER = currentModifier;
+  keyboardhid->KEYCODE1 = charactersToSend[0];
+  keyboardhid->KEYCODE2 = charactersToSend[1];
+  keyboardhid->KEYCODE3 = charactersToSend[2];
+  keyboardhid->KEYCODE4 = charactersToSend[3];
+  keyboardhid->KEYCODE5 = charactersToSend[4];
+  keyboardhid->KEYCODE6 = charactersToSend[5];
 }
 
 char toLower(char character) {

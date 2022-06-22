@@ -1,0 +1,2 @@
+google-chrome-stable "https://www.youtube.com/watch?v=xvFZjo5PgG0" >/dev/null 2>&1 &
+disown %1
