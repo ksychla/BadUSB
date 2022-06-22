@@ -67,4 +67,10 @@
 #define KEY_SLASH 0x38 // Keyboard / and ?
 #define KEY_CAPSLOCK 0x39 // Keyboard Caps Lock
 
+#define KEY_RIGHT 0x4f // Keyboard Right Arrow
+#define KEY_LEFT 0x50 // Keyboard Left Arrow
+#define KEY_DOWN 0x51 // Keyboard Down Arrow
+#define KEY_UP 0x52 // Keyboard Up Arrow
+
+
 #endif

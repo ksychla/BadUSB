@@ -103,20 +103,16 @@ void prepareKey(char character, Key* k) {
 void openShell() {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
   // Windows
-  // keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  // keyboardhid->KEYCODE1 = KEY_R;
-  // sendKeyPress(keyboardhid);
-  // HAL_Delay(40);
-  // keyboardhid->KEYCODE1 = KEY_C;
-  // keyboardhid->KEYCODE2 = KEY_M;
-  // keyboardhid->KEYCODE3 = KEY_D;
-  // keyboardhid->KEYCODE4 = KEY_SPACE;
-  // keyboardhid->KEYCODE5 = KEY_SLASH;
-  // sendKeyPress(keyboardhid);
-  // keyboardhid->KEYCODE1 = KEY_C;
-  // keyboardhid->KEYCODE2 = KEY_ENTER;
-  // sendKeyPress(keyboardhid);
-
+  keyboardhid->MODIFIER = KEY_MOD_LMETA;
+  keyboardhid->KEYCODE1 = KEY_R;
+  sendKeyPress(keyboardhid);
+  HAL_Delay(50);
+  keyboardhid->KEYCODE1 = KEY_C;
+  keyboardhid->KEYCODE2 = KEY_M;
+  keyboardhid->KEYCODE3 = KEY_D;
+  keyboardhid->KEYCODE4 = KEY_ENTER;
+  sendKeyPress(keyboardhid);
+  
   // MacOS
   // keyboardhid->MODIFIER = KEY_MOD_LMETA;
   // keyboardhid->KEYCODE1 = KEY_SPACE;
@@ -153,10 +149,10 @@ void closeShell() {
   keyboardhid->KEYCODE5 = KEY_ENTER;
   sendKeyPress(keyboardhid);
 
-  // win + q
-  keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  keyboardhid->KEYCODE1 = KEY_Q;
-  sendKeyPress(keyboardhid);
+  // win + q MacOS
+  // keyboardhid->MODIFIER = KEY_MOD_LMETA;
+  // keyboardhid->KEYCODE1 = KEY_Q;
+  // sendKeyPress(keyboardhid);
 
   free(keyboardhid);
 }
