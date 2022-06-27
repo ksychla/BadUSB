@@ -133,29 +133,27 @@ void write_file(char *name) {
 	}
 }
 
-FRESULT read_file (char *name, char *result) {
-	/**** check whether the file exists or not ****/
-	fresult = f_stat(name, &fno);
-	if (fresult != FR_OK) {
-		return FR_NO_FILE;
+int32_t read_file (char *name, char *result, uint32_t start) {
+	if (f_stat(name, &fno) != FR_OK) {
+		return -1;
 	}
-	
-	/* Open file to read */
-	fresult = f_open(&fil, name, FA_READ);
-	if (fresult != FR_OK) {
-		return fresult;
+	if (fno.fsize <= start) {
+		return 0;
 	}
-
-	fresult = f_read(&fil, result, f_size(&fil), &br);
-	if (fresult != FR_OK) {
-		return fresult;
+	if (f_open(&fil, name, FA_READ) != FR_OK) {
+		return -1;
 	}
-
-	/* Close file */
-	fresult = f_close(&fil);
-	if (fresult != FR_OK) {
-		return FR_DENIED;
+	if (f_lseek(&fil, start) != FR_OK) {
+		return -1;
 	}
+	if (f_read(&fil, result, BUFFER_SIZE - 1, &br) != FR_OK) {
+		return -1;
+	}
+	result[br] = '\0';
+	if (f_close(&fil) != FR_OK) {
+		return -1;
+	}
+	return br;
 }
 
 void create_file(char *name) {

@@ -25,24 +25,30 @@ int main(void) {
   MX_FATFS_Init();
   int8_t flag = 0;
   char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
+  char* rememberPointer = buffer;
   Key* keys;
 
-  HAL_Delay(1500);
+  HAL_Delay(2000);
   directives dirs;
+  uint32_t count = 0;
   if (mount_sd() == FR_OK) {
-    if (read_file(PAYLOAD_NAME, buffer) == FR_OK) {
+    if (read_file(PAYLOAD_NAME, buffer, 0) > 0) {
       dirs = parseDirectives(buffer);
       buffer += dirs.numberOfBytes;
+    }
+    do {
       keys = prepareKeys(buffer);
-      if (!dirs.noshell) {
+      if (!dirs.noshell && count == 0) {
         openShell();
       }  
       sendKeys(keys, strlen(buffer));
-      if (!dirs.noshell) {
-        closeShell();
-      }
       flag = 1;
       free(keys);
+      count++;
+      buffer = rememberPointer;
+    } while (read_file(PAYLOAD_NAME, buffer, count * (BUFFER_SIZE - 1)) > 0);
+    if (!dirs.noshell) {
+      closeShell();
     }
     unmount_sd();
   }

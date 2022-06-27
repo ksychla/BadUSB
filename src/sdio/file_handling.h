@@ -23,7 +23,7 @@
  * "checkfile " : gives the details of the file
  * "checksd " : get free space of the sd card
  */
-#define BUFFER_SIZE 10240
+#define BUFFER_SIZE 5120
 #define PATH_SIZE 32
 
 extern char buffer[BUFFER_SIZE];  // to store strings..
@@ -61,7 +61,7 @@ void write_file (char *name);
 
 /* read data from the file
  * @ name : is the path to the file*/
-FRESULT read_file (char *name, char* result);
+int32_t read_file (char *name, char* result, uint32_t start);
 
 /* creates the file, if it does not exists
  * @ name : is the path to the file*/
