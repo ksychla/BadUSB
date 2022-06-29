@@ -135,7 +135,7 @@ void openShell() {
   keyboardhid->KEYCODE1 = KEY_T;
   sendKeyPress(keyboardhid);
 
-  HAL_Delay(150);
+  HAL_Delay(200);
   free(keyboardhid);
 }
 
