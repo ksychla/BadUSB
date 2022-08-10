@@ -14,4 +14,6 @@
 	sudo pacman -S stlink
 	```
 3. Build and flash the firmware
-	`make`
+	```bash
+	make
+	```
