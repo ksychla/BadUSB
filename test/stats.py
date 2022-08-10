@@ -21,7 +21,7 @@ def main():
     stats = [len(i) for i in allToSend]
     print(f"min: {min(stats)}")
     print(f"max: {max(stats)}")
-    print(f"avg: {sum(stats)/len(stats)}")
+    print(f"avg: {round(sum(stats)/len(stats), 2)}")
 
 def toLower(character):
     if character >= 'A' and character <= 'Z':
