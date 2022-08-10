@@ -15,5 +15,7 @@
 	```
 3. Build and flash the firmware
 	```bash
+	git clone git@github.com:ksychla/BadUSB.git
+	cd BadUSB/
 	make
 	```
