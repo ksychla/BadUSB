@@ -18,6 +18,7 @@ def main():
         if lower != i:
             currentModifier = 0x02
         toSend.append(lower)
+    print(allToSend)
     stats = [len(i) for i in allToSend]
     print(f"min: {min(stats)}")
     print(f"max: {max(stats)}")

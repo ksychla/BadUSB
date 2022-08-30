@@ -27,8 +27,7 @@ int main(void) {
   char* buffer = (char*) calloc(BUFFER_SIZE, sizeof(char));
   char* rememberPointer = buffer;
   Key* keys;
-
-  HAL_Delay(2000);
+  int start = HAL_GetTick();
   directives dirs;
   uint32_t count = 0;
   if (mount_sd() == FR_OK) {
@@ -38,9 +37,13 @@ int main(void) {
     }
     do {
       keys = prepareKeys(buffer);
+      int interval = HAL_GetTick() - start;
+      if (interval < 2000) {
+          HAL_Delay(2000 - interval);
+      }
       if (!dirs.noshell && count == 0) {
         openShell();
-      }  
+      }
       sendKeys(keys, strlen(buffer));
       flag = 1;
       free(keys);
@@ -137,19 +140,9 @@ static void MX_GPIO_Init(void) {
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  // HAL_GPIO_WritePin(TEST_LED_GPIO_Port, TEST_LED_Pin, GPIO_PIN_RESET);
-
-  /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, LED_B_Pin|LED_G_Pin, GPIO_PIN_SET);
-  HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOA, LED_R_Pin | LED_G_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, LED_B_Pin, GPIO_PIN_RESET);
   // HAL_GPIO_WritePin(GPIOA, LED_R_Pin, GPIO_PIN_SET);
-
-  /*Configure GPIO pin : TEST_LED_Pin */
-  // GPIO_InitStruct.Pin = TEST_LED_Pin;
-  // GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
-  // GPIO_InitStruct.Pull = GPIO_NOPULL;
-  // GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
-  // HAL_GPIO_Init(TEST_LED_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : LED_R_Pin LED_G_Pin LED_B_Pin */
   GPIO_InitStruct.Pin = LED_R_Pin|LED_G_Pin|LED_B_Pin;

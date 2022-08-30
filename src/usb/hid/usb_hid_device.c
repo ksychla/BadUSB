@@ -67,16 +67,16 @@ Key* prepareKeys(char* string) {
 void sendKeys(Key* keys, int size) {
   int i;
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
-  uint8_t keysToSend[6] = {0};
+  uint8_t keysToSend[REPORT_KEY_NUM] = {0};
   uint16_t keysToSendIndex = 0;
   uint8_t currentModifier = 0;
   for (i = 0; i < size; i++) {
-    if (isCharInArray(keys[i].KEYCODE, keysToSend, 6) >= 0 
+    if (isCharInArray(keys[i].KEYCODE, keysToSend, REPORT_KEY_NUM) >= 0 
         || (keysToSendIndex > 0 && keys[i].MODIFIER != currentModifier)
-        || keysToSendIndex > 5) {
+        || keysToSendIndex > REPORT_KEY_NUM - 1) {
       OPTprepareKeyboardHID(keyboardhid, keysToSend, currentModifier);
       sendKeyPress(keyboardhid);
-      memset(keysToSend, 0, 6);
+      memset(keysToSend, 0, REPORT_KEY_NUM * sizeof(uint8_t));
       keysToSendIndex = 0;
       currentModifier = 0;
     }
@@ -104,35 +104,35 @@ void openShell() {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
   // Windows
   keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  keyboardhid->KEYCODE1 = KEY_R;
+  keyboardhid->KEYCODES[0] = KEY_R;
   sendKeyPress(keyboardhid);
   HAL_Delay(50);
-  keyboardhid->KEYCODE1 = KEY_C;
-  keyboardhid->KEYCODE2 = KEY_M;
-  keyboardhid->KEYCODE3 = KEY_D;
-  keyboardhid->KEYCODE4 = KEY_ENTER;
+  keyboardhid->KEYCODES[0] = KEY_C;
+  keyboardhid->KEYCODES[1] = KEY_M;
+  keyboardhid->KEYCODES[2] = KEY_D;
+  keyboardhid->KEYCODES[3] = KEY_ENTER;
   sendKeyPress(keyboardhid);
   
   // MacOS
   // keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  // keyboardhid->KEYCODE1 = KEY_SPACE;
+  // keyboardhid->KEYCODES[0] = KEY_SPACE;
   // sendKeyPress(keyboardhid);
   // HAL_Delay(40);
-  // keyboardhid->KEYCODE1 = KEY_T;
-  // keyboardhid->KEYCODE2 = KEY_E;
-  // keyboardhid->KEYCODE3 = KEY_R;
-  // keyboardhid->KEYCODE4 = KEY_M;
-  // keyboardhid->KEYCODE5 = KEY_I;
-  // keyboardhid->KEYCODE6 = KEY_N;
+  // keyboardhid->KEYCODES[0] = KEY_T;
+  // keyboardhid->KEYCODES[1] = KEY_E;
+  // keyboardhid->KEYCODES[2] = KEY_R;
+  // keyboardhid->KEYCODES[3] = KEY_M;
+  // keyboardhid->KEYCODES[4] = KEY_I;
+  // keyboardhid->KEYCODES[5] = KEY_N;
   // sendKeyPress(keyboardhid);
-  // keyboardhid->KEYCODE1 = KEY_A;
-  // keyboardhid->KEYCODE2 = KEY_L;
-  // keyboardhid->KEYCODE3 = KEY_ENTER;
+  // keyboardhid->KEYCODES[0] = KEY_A;
+  // keyboardhid->KEYCODES[1] = KEY_L;
+  // keyboardhid->KEYCODES[2] = KEY_ENTER;
   // sendKeyPress(keyboardhid);
 
   // Linux
   keyboardhid->MODIFIER = KEY_MOD_LCTRL | KEY_MOD_LALT;
-  keyboardhid->KEYCODE1 = KEY_T;
+  keyboardhid->KEYCODES[0] = KEY_T;
   sendKeyPress(keyboardhid);
 
   HAL_Delay(200);
@@ -142,16 +142,16 @@ void openShell() {
 void closeShell() {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
   // exit\n
-  keyboardhid->KEYCODE1 = KEY_E;
-  keyboardhid->KEYCODE2 = KEY_X;
-  keyboardhid->KEYCODE3 = KEY_I;
-  keyboardhid->KEYCODE4 = KEY_T;
-  keyboardhid->KEYCODE5 = KEY_ENTER;
+  keyboardhid->KEYCODES[0] = KEY_E;
+  keyboardhid->KEYCODES[1] = KEY_X;
+  keyboardhid->KEYCODES[2] = KEY_I;
+  keyboardhid->KEYCODES[3] = KEY_T;
+  keyboardhid->KEYCODES[4] = KEY_ENTER;
   sendKeyPress(keyboardhid);
 
   // win + q MacOS
   // keyboardhid->MODIFIER = KEY_MOD_LMETA;
-  // keyboardhid->KEYCODE1 = KEY_Q;
+  // keyboardhid->KEYCODES[0] = KEY_Q;
   // sendKeyPress(keyboardhid);
 
   free(keyboardhid);
@@ -159,17 +159,17 @@ void closeShell() {
 
 void typeString(char* string) {
   keyboardHID* keyboardhid = (keyboardHID*) calloc(1, sizeof(keyboardHID));
-  char* charsToSend = calloc(6, sizeof(char));
+  char* charsToSend = calloc(REPORT_KEY_NUM, sizeof(char));
   uint8_t charsToSendIndex = 0;
   uint8_t currentModifier = 0;
   for (int i = 0; i < strlen(string); i++) {
     char lowerCharacter = toLower(string[i]);
-    if (isCharInArray(lowerCharacter, charsToSend, 6) >= 0 
+    if (isCharInArray(lowerCharacter, charsToSend, REPORT_KEY_NUM) >= 0
         || (charsToSendIndex > 0 && (lowerCharacter != string[i]) != (currentModifier & 0x02) >> 1)
-        || charsToSendIndex > 5) {
+        || charsToSendIndex > REPORT_KEY_NUM - 1) {
       prepareKeyboardHID(keyboardhid, charsToSend, currentModifier);
       sendKeyPress(keyboardhid);
-      memset(charsToSend, 0, 6);
+      memset(charsToSend, 0, REPORT_KEY_NUM * sizeof(char));
       charsToSendIndex = 0;
       currentModifier = 0;
     }
@@ -199,12 +199,7 @@ void sendKeyPress(keyboardHID* keyboardhid) {
   USBD_HID_SendReport(&hidUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
   HAL_Delay(2);
   keyboardhid->MODIFIER = 0x0;
-  keyboardhid->KEYCODE1 = 0x0;
-  keyboardhid->KEYCODE2 = 0x0;
-  keyboardhid->KEYCODE3 = 0x0;
-  keyboardhid->KEYCODE4 = 0x0;
-  keyboardhid->KEYCODE5 = 0x0;
-  keyboardhid->KEYCODE6 = 0x0;
+  memset(keyboardhid->KEYCODES, 0, REPORT_KEY_NUM * sizeof(uint8_t));
   USBD_HID_SendReport(&hidUsbDeviceFS, keyboardhid, sizeof(keyboardHID));
   HAL_Delay(2);
 }
@@ -255,22 +250,18 @@ uint8_t encodeKey(char character) {
 
 void prepareKeyboardHID(keyboardHID* keyboardhid, char* charactersToSend, uint8_t currentModifier) {
   keyboardhid->MODIFIER = currentModifier;
-  keyboardhid->KEYCODE1 = encodeKey(charactersToSend[0]);
-  keyboardhid->KEYCODE2 = encodeKey(charactersToSend[1]);
-  keyboardhid->KEYCODE3 = encodeKey(charactersToSend[2]);
-  keyboardhid->KEYCODE4 = encodeKey(charactersToSend[3]);
-  keyboardhid->KEYCODE5 = encodeKey(charactersToSend[4]);
-  keyboardhid->KEYCODE6 = encodeKey(charactersToSend[5]);
+  int i;
+  for (i = 0; i < REPORT_KEY_NUM; i++) {
+      keyboardhid->KEYCODES[i] = encodeKey(charactersToSend[i]);
+  }
 }
 
 void OPTprepareKeyboardHID(keyboardHID* keyboardhid, uint8_t* charactersToSend, uint8_t currentModifier) {
   keyboardhid->MODIFIER = currentModifier;
-  keyboardhid->KEYCODE1 = charactersToSend[0];
-  keyboardhid->KEYCODE2 = charactersToSend[1];
-  keyboardhid->KEYCODE3 = charactersToSend[2];
-  keyboardhid->KEYCODE4 = charactersToSend[3];
-  keyboardhid->KEYCODE5 = charactersToSend[4];
-  keyboardhid->KEYCODE6 = charactersToSend[5];
+  int i;
+  for (i = 0; i < REPORT_KEY_NUM; i++) {
+      keyboardhid->KEYCODES[i] = charactersToSend[i];
+  }
 }
 
 char toLower(char character) {

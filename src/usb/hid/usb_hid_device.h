@@ -15,6 +15,8 @@
 #define NOSHELL "@@noshell@@"
 #define ONELINE "@@oneline@@"
 
+#define REPORT_KEY_NUM 6
+
 typedef struct {
   uint8_t MODIFIER;
   uint8_t KEYCODE;
@@ -23,12 +25,7 @@ typedef struct {
 typedef struct {
   uint8_t MODIFIER;
   uint8_t RESERVED;
-  uint8_t KEYCODE1;
-  uint8_t KEYCODE2;
-  uint8_t KEYCODE3;
-  uint8_t KEYCODE4;
-  uint8_t KEYCODE5;
-  uint8_t KEYCODE6;
+  uint8_t KEYCODES[REPORT_KEY_NUM];
 } keyboardHID;
 
 typedef struct {
